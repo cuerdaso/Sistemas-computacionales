@@ -4,20 +4,19 @@ import co.edu.usbcali.autosUsbCali.dto.request.ActualizarRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.request.CrearRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.request.EliminarRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.response.ObtenerRolResponse;
-import co.edu.usbcali.autosUsbCali.service.RolService;
+import co.edu.usbcali.autosUsbCali.service.IRolService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/roles")
 @AllArgsConstructor
 public class RolController {
-    private final RolService rolService;
+    private final IRolService rolService;
 
     @GetMapping
     public List<ObtenerRolResponse> obtenerTodos() {
@@ -26,40 +25,30 @@ public class RolController {
 
     @GetMapping("/activos")
     public List<ObtenerRolResponse> obtenerTodosActivos(){
-        return rolService.obtenerTodosActivos();
+        return rolService.buscarRolPorEstado(true);
     }
 
     @GetMapping("/inactivos")
     public List<ObtenerRolResponse> obtenerTodosInactivos(){
-        return rolService.obtenerTodosInactivos();
+        return rolService.buscarRolPorEstado(false);
     }
 
     @GetMapping("/por-nombre/{nombre}")
     public ResponseEntity<ObtenerRolResponse> obtenerPorNombre(@PathVariable String nombre){
-        return rolService.obtenerPorNombre(nombre).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        ObtenerRolResponse rolResponse = rolService.obtenerRolPorNombre(nombre);
+        if (rolResponse != null) {
+            return new ResponseEntity<>(rolResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/por-id/{id}")
     public ResponseEntity<ObtenerRolResponse> ObtenerPorId(@PathVariable Long id){
-        return rolService.obtenerPorId(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        ObtenerRolResponse rolResponse = rolService.obtenerRolPorId(id);
+        if (rolResponse != null) {
+            return new ResponseEntity<>(rolResponse, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<ObtenerRolResponse> crear(@RequestBody CrearRolRequest request) {
-        return new ResponseEntity<>(rolService.crear(request), HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ObtenerRolResponse> actualizar(@PathVariable Long id,
-                                                         @RequestBody ActualizarRolRequest request) {
-        return rolService.actualizar(id, request)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        boolean eliminado = rolService.eliminar(new EliminarRolRequest(id));
-        return eliminado ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
 }
