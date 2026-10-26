@@ -32,14 +32,14 @@ public class RolService implements IRolService{
     }
 
     @Override
-    public Optional<ObtenerRolResponse> obtenerRolPorNombre(String nombre) {
+    public ObtenerRolResponse obtenerRolPorNombre(String nombre) {
         Rol rolPorNombre = rolRepository.findByNombre(nombre)
                 .orElseThrow(() -> new RuntimeException("No se ha encontrado el rol por nombre: "+nombre));
         return RolMapper.rolAObtenerRolResponse(rolPorNombre);
     }
 
     @Override
-    public Optional<ObtenerRolResponse> obtenerRolPorId(Long id) {
+    public ObtenerRolResponse obtenerRolPorId(Long id) {
         Rol rolPorId = rolRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No se ha encontrado el rol por id "+id));
         return RolMapper.rolAObtenerRolResponse(rolPorId);
