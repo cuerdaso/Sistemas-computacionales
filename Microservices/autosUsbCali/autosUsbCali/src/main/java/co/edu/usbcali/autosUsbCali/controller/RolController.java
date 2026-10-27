@@ -1,8 +1,6 @@
 package co.edu.usbcali.autosUsbCali.controller;
 
-import co.edu.usbcali.autosUsbCali.dto.request.ActualizarRolRequest;
-import co.edu.usbcali.autosUsbCali.dto.request.CrearRolRequest;
-import co.edu.usbcali.autosUsbCali.dto.request.EliminarRolRequest;
+import co.edu.usbcali.autosUsbCali.dto.request.CrearModificarRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.response.ObtenerRolResponse;
 import co.edu.usbcali.autosUsbCali.service.IRolService;
 import lombok.AllArgsConstructor;
@@ -50,5 +48,11 @@ public class RolController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("/guardar")
+    public ResponseEntity<ObtenerRolResponse> crearRol(@RequestBody CrearModificarRolRequest crearModificarRolRequest) throws Exception {
+        return new ResponseEntity<>(
+                rolService.crearRol(crearModificarRolRequest),HttpStatus.CREATED);
+    };
 
 }

@@ -1,6 +1,7 @@
 package co.edu.usbcali.autosUsbCali.mapper;
 
 import co.edu.usbcali.autosUsbCali.domain.Rol;
+import co.edu.usbcali.autosUsbCali.dto.request.CrearModificarRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.response.ObtenerRolResponse;
 import tools.jackson.core.tree.ObjectTreeNode;
 
@@ -16,5 +17,14 @@ public class RolMapper {
 
     public static List<ObtenerRolResponse> listaRolesAListaObtenerRolResponse(List<Rol> roles){
         return roles.stream().map(RolMapper::rolAObtenerRolResponse).toList();
+    }
+
+    // metodo que convierte un Request de crear rol a un Rol (Entidad de dominio)
+    public static Rol crearRolRequest(CrearModificarRolRequest crearModificarRolRequest){
+        Rol rol = new Rol();
+        rol.setNombre(crearModificarRolRequest.nombre());
+        rol.setDescripcion(crearModificarRolRequest.descripcion());
+        rol.setActivo(true);
+        return rol;
     }
 }
