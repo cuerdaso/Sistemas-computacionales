@@ -108,4 +108,20 @@ public class RolService implements IRolService{
 
         return RolMapper.rolAObtenerRolResponse(rol);
     }
+
+    @Override
+    public void eliminarRol(Long id) throws Exception {
+        if (id == null || id <= 0) {
+            throw new Exception("El id no puede ser nulo ni menor o igual a cero");
+        }
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() -> new Exception("No existe un rol con el id " + id));
+
+        if (!rol.getActivo()) {
+            throw new Exception("El rol con id " + id + " ya se encuentra inactivo");
+        }
+
+        rol.setActivo(false);
+        rolRepository.save(rol);
+    }
 }
