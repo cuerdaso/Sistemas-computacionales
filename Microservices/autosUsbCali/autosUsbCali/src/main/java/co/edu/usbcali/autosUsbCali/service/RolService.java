@@ -42,55 +42,70 @@ public class RolService implements IRolService{
 
     @Override
     public ObtenerRolResponse crearRol(CrearModificarRolRequest crearModificarRolRequest) throws Exception {
-        return null;
-    }
-
-    @Override
-    public ObtenerRolResponse modificacion(Long id, CrearModificarRolRequest modificarRolRequest) throws Exception {
-        return null;
-    }
-
-    @Override
-    public ObtenerRolResponse modificacion() {
-        return null;
-    }
-
-    @Override
-    public ObtenerRolResponse crearRol(CrearModificarRolRequest crearRolRequest) throws Exception {
-        // validacion del objeto ScreenRolRequest
+        // validacion del objeto CrearModificarRolRequest
         if (crearModificarRolRequest == null){
-            throw new Exception("El objeto CrearRolRequest no puede ser nulo");
+            throw new Exception("El objeto CrearModificarRolRequest no puede ser nulo");
         }
-        if (crearRolRequest.nombre() == null || crearRolRequest.nombre().isBlank()) {
+        if (crearModificarRolRequest.nombre() == null || crearModificarRolRequest.nombre().isBlank()) {
             throw new Exception("El nombre no puede ser nulo ni estar vacio");
         }
-        if (crearRolRequest.descripcion() == null || crearRolRequest.descripcion().isBlank()){
+        if (crearModificarRolRequest.descripcion() == null || crearModificarRolRequest.descripcion().isBlank()){
             throw new Exception("La descripcion no puede ser nula ni estar vacio");
         }
-        // buscar si existe un rol con el nombre que se quiere agregar
+        // Buscar si existe un rol con el nombre que se quiere agregar Opción 1 traer el objeto
+        /*
+        Optional<Rol> rolPorNombre = rolRepository.findByNombre(crearModificarRolRequest.nombre());
+        if (rolPorNombre.isPresent()) {
+            throw new Exception("Ya existe un rol con el nombre "+crearModificarRolRequest.nombre());
+        }*/
 
-        //opcion 1 - traer el objeto
-        /*Optional<Rol> rolPorNombre = rolRepository.findByNombre(crearRolRequest.nombre());
-        if (rolPorNombre.isPresent()){
-            throw new Exception("Ya existe un rol con el nombre"+crearRolRequest.nombre());
-        } */
-        // opcion 2 - usar el booleano
-        if (rolRepository.existsByNombre(crearRolRequest.nombre())){
-            throw new Exception("Ya existe un rol con el nombre" + crearRolRequest.nombre());
+        // Buscar si existe un rol con el nombre que se quiere agregar Opción 2 buscar boolean
+        if (rolRepository.existsByNombre(crearModificarRolRequest.nombre())) {
+            throw new Exception("Ya existe un rol con el nombre "+crearModificarRolRequest.nombre());
         }
 
+        // Usar mapper para convertir DTO a objeto de Domain
+        Rol rol = RolMapper.CrearModificarRolRequestARol(crearModificarRolRequest);
 
-        // usar mapper para convertir DTO a objeto de Domain
-        Rol rol = RolMapper.crearRolRequest(crearRolRequest);
-
-        // persistir el rol en base de datos
+        // Persistir el Rol en base de datos
         rol = rolRepository.save(rol);
 
-        // crear DTO response obtenerRolResponse
+        // Crear DTO response obtenerRolResponse
         ObtenerRolResponse rolResponse = RolMapper.rolAObtenerRolResponse(rol);
 
-        //retornar rolResponse
+        // Retornar rolResponse
         return rolResponse;
 
+    }
+
+    @Override
+    public ObtenerRolResponse modificarRol(Long id, CrearModificarRolRequest modificarRolRequest) throws Exception {
+        if (id == null || id <= 0) {
+            throw new Exception("El id no puede ser nulo ni menor o igual a cero");
+        }
+        if (modificarRolRequest == null) {
+            throw new Exception("El objeto CrearModificarRolRequest no puede ser nulo");
+        }
+        if (modificarRolRequest.nombre() == null || modificarRolRequest.nombre().isBlank()) {
+            throw new Exception("El nombre no puede ser nulo ni estar vacio");
+        }
+        if (modificarRolRequest.descripcion() == null || modificarRolRequest.descripcion().isBlank()) {
+            throw new Exception("La descripcion no puede ser nula ni estar vacia");
+        }
+
+        // El rol debe existir
+        Rol rol = rolRepository.findById(id)
+                .orElseThrow(() -> new Exception("No existe un rol con el id " + id));
+
+        // El nombre no puede pertenecer a OTRO rol
+        if (rolRepository.existsByNombreAndIdNot(modificarRolRequest.nombre(), id)) {
+            throw new Exception("Ya existe otro rol con el nombre " + modificarRolRequest.nombre());
+        }
+
+        rol.setNombre(modificarRolRequest.nombre());
+        rol.setDescripcion(modificarRolRequest.descripcion());
+        rol = rolRepository.save(rol);
+
+        return RolMapper.rolAObtenerRolResponse(rol);
     }
 }

@@ -50,9 +50,13 @@ public class RolController {
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<ObtenerRolResponse> crearRol(@RequestBody CrearModificarRolRequest crearModificarRolRequest) throws Exception {
+    public ResponseEntity<ObtenerRolResponse> crearRol(@RequestBody CrearModificarRolRequest crearRolRequest) throws Exception {
         return new ResponseEntity<>(
-                rolService.crearRol(crearModificarRolRequest),HttpStatus.CREATED);
+                rolService.crearRol(crearRolRequest),HttpStatus.CREATED);
     };
 
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<ObtenerRolResponse> modificarRol(@PathVariable Long id, @RequestBody CrearModificarRolRequest crearRolRequest) throws  Exception{
+        return new ResponseEntity<>(rolService.modificarRol(id, crearRolRequest), HttpStatus.OK);
+    }
 }

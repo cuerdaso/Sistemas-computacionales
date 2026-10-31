@@ -1,0 +1,42 @@
+package co.edu.usbcali.autosUsbCali.domain;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.time.OffsetDateTime;
+import java.util.Map;
+
+@Entity
+@Table(name="busquedas_guardadas")
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class BusquedaGuardada {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @Column(name = "nombre", length = 100)
+    private String nombre;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "criterios", nullable = false)
+    private Map<String, Object> criterios;
+
+    @ColumnDefault("false")
+    @Column(name = "alerta_activa", nullable = false)
+    private Boolean alertaActiva;
+
+    @ColumnDefault("now()")
+    @Column(name = "fecha_creacion", nullable = false)
+    private OffsetDateTime fechaCreacion;
+}

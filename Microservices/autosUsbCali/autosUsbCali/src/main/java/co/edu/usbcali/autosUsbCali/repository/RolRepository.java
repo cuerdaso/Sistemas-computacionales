@@ -12,4 +12,5 @@ public interface RolRepository extends JpaRepository<Rol, Long> {
     Optional<Rol> findByNombre(String name);
     List<Rol> findByActivo(Boolean activo);
     Boolean existsByNombre(String nombre);
+    Boolean existsByNombreAndIdNot(String nombre, Long id);
 }

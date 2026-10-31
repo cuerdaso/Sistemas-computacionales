@@ -20,7 +20,7 @@ public interface IRolService{
     ObtenerRolResponse crearRol(CrearModificarRolRequest crearModificarRolRequest) throws  Exception;
 
     //metodo para modificar un rol
-    ObtenerRolResponse modificacion(Long id, CrearModificarRolRequest modificarRolRequest) throws  Exception;
+    ObtenerRolResponse modificarRol(Long id, CrearModificarRolRequest modificarRolRequest) throws  Exception;
 
 
 }
