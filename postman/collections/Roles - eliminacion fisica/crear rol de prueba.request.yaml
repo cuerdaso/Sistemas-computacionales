@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{baseUrl}}/api/roles/guardar"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"nombre\": \"PRUEBA_{{$randomInt}}\",\r
+
+    \  \"descripcion\": \"Rol creado para probar la eliminación física\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "// Guarda el id del rol creado en la variable de colección\r
+
+      pm.collectionVariables.set(\"rolId\", pm.response.json().id);\r
+
+      \r
+
+      pm.test(\"Debe responder 201 Created\", () => {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });"
+    language: text/javascript
+order: 1000

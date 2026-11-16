@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{baseUrl}}/api/roles/eliminar-fisico/{{rolId}}"
+method: DELETE
+body:
+  type: json
+  content: "{\r
+
+    \  \"type\": \"about:blank\",\r
+
+    \  \"title\": \"Not Found\",\r
+
+    \  \"status\": 404,\r
+
+    \  \"detail\": \"No existe un rol con el id 12\",\r
+
+    \  \"instance\": \"/api/roles/eliminar-fisico/12\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Debe responder 204 No Content\", () => {\r
+
+      \    pm.response.to.have.status(204);\r
+
+      });"
+    language: text/javascript
+order: 2000

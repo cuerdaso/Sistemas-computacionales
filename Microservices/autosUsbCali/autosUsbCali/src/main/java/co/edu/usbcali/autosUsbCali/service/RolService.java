@@ -5,15 +5,28 @@ import co.edu.usbcali.autosUsbCali.dto.request.CrearModificarRolRequest;
 import co.edu.usbcali.autosUsbCali.dto.response.ObtenerRolResponse;
 import co.edu.usbcali.autosUsbCali.mapper.RolMapper;
 import co.edu.usbcali.autosUsbCali.repository.RolRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import co.edu.usbcali.autosUsbCali.domain.Rol;
+import co.edu.usbcali.autosUsbCali.exception.RolEnUsoException;
+import co.edu.usbcali.autosUsbCali.exception.RolNoEncontradoException;
+import co.edu.usbcali.autosUsbCali.repository.RolPermisoRepository;
+import co.edu.usbcali.autosUsbCali.repository.RolRepository;
+import co.edu.usbcali.autosUsbCali.repository.UsuarioRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class RolService implements IRolService{
     private final RolRepository rolRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final RolPermisoRepository rolPermisoRepository;
 
     @Override
     public List<ObtenerRolResponse> obtenerTodos() {
@@ -123,5 +136,38 @@ public class RolService implements IRolService{
 
         rol.setActivo(false);
         rolRepository.save(rol);
+    }
+
+    @Override
+    @Transactional
+    public void eliminarRolFisicamente (Long id){
+        log.debug("Solicitud de eliminacion fisica del rol con id {}", id);
+
+        // se valida el id (si el id es 0 o null, entonces error 400
+        if (id == null || id <= 0){
+            log.warn("Id invalido para eliminacion fisica de rol: {}", id);
+            throw new IllegalArgumentException("El id no puede ser nulo ni menor o igual a cero");
+        }
+
+        // el rol debe existir (en caso de que no, da error 404
+        Rol rol = rolRepository.findById(id).orElseThrow(()->{log.warn("Intento de eliminar un rol inexistente con id {}", id); return new RolNoEncontradoException((id));});
+
+        //si el rol esta siendo usado arroja 409
+        if (usuarioRepository.existsByRoles_Id(id)){
+            log.warn("No se elimina el rol {} ({}): tiene un usuario asignado", id, rol.getNombre());
+            throw new RolEnUsoException("El rol " + rol.getNombre() + "Tiene usuarios asignados");
+
+        }
+        if (rolPermisoRepository.existsByRol_Id(id)){
+            log.warn("No se elimina el rol {} ({}): Tiene permisos asignados", id, rol.getNombre());
+            throw new RolEnUsoException("El rol "+ rol.getNombre()+ "tiene permisos asignados");
+        }
+
+        // eliminacion fisica + flush para que el delete se ejecute ya
+        rolRepository.delete(rol);
+        rolRepository.flush();
+
+        // despues de esto, los datos ta no existen en la BD y aparece INFOR
+        log.info("AUDITORIA - Rol eliminado fisicamente: id={}, nombre = {}, activo ={}", rol.getId(), rol.getNombre(), rol.getActivo());
     }
 }

@@ -23,4 +23,6 @@ public interface IRolService{
     ObtenerRolResponse modificarRol(Long id, CrearModificarRolRequest modificarRolRequest) throws  Exception;
 
     void eliminarRol(Long id) throws Exception;
+
+    void eliminarRolFisicamente(Long id);
 }
