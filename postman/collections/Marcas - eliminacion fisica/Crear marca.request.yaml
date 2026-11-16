@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/marcas/guardar"
+method: POST
+body:
+  type: json
+  content: '{"nombre" : "MARCA_{{$randomInt}}"}'
+scripts:
+  - type: afterResponse
+    code: "pm.collectionVariables.set(\"marcaId\", pm.response.json().id);\r
+
+      pm.test(\"Debe responder 201\", () => pm.response.to.have.status(201));"
+    language: text/javascript
+order: 1000

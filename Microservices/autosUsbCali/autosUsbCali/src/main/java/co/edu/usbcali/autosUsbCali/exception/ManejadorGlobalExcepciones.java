@@ -33,4 +33,14 @@ public class ManejadorGlobalExcepciones {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT,
                 "El registro tiene datos asociados y no puede eliminarse");
     }
+
+    @ExceptionHandler(MarcaNoEncontradaException.class)
+    public ProblemDetail manejarMarcaNoEncontrada(MarcaNoEncontradaException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());   // 404
+    }
+
+    @ExceptionHandler(MarcaEnUsoException.class)
+    public ProblemDetail manejarMarcaEnUso(MarcaEnUsoException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());    // 409
+    }
 }
