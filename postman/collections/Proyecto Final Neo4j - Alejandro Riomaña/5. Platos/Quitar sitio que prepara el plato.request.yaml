@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos/Lulada/sitios/Andrés D.C."
+method: DELETE
+order: 6000

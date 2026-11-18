@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consultas/restaurantes-cercanos?km=3"
+method: GET
+queryParams:
+  km: "3"
+order: 6000

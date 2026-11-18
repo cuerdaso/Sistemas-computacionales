@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/sitios/La Puerta Falsa"
+method: GET
+order: 2000

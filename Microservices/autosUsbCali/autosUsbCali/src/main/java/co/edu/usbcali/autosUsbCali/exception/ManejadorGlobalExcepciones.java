@@ -43,4 +43,14 @@ public class ManejadorGlobalExcepciones {
     public ProblemDetail manejarMarcaEnUso(MarcaEnUsoException ex) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());    // 409
     }
+
+    @ExceptionHandler(ModeloNoEncontradoException.class)
+    public ProblemDetail manejarModeloNoEncontrado(ModeloNoEncontradoException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());   // 404
+    }
+
+    @ExceptionHandler(ModeloEnUsoException.class)
+    public ProblemDetail manejarModeloEnUso(ModeloEnUsoException ex) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());    // 409
+    }
 }

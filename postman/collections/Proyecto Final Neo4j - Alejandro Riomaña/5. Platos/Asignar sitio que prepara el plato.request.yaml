@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos/Lulada/sitios"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "sitio": "Andrés D.C.",
+      "precio": 15000,
+      "moneda": "COP"
+    }
+order: 5000

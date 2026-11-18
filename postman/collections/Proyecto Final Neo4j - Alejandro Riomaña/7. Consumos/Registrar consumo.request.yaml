@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consumos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuario": "U002",
+      "sitio": "La Puerta Falsa",
+      "plato": "Tamal tolimense",
+      "costo": 18000,
+      "fecha": "2026-11-15T08:00:00",
+      "comentario_plato": "Muy bien sazonado",
+      "comentario_lugar": "Pequeño pero muy tradicional",
+      "estrellas": 5
+    }
+order: 3000

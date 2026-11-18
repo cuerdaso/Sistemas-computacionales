@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consultas/plato-mas-consumido"
+method: GET
+order: 3000

@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/paises"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": "ALM",
+      "nombre": "Alemania",
+      "poblacion": 48.6,
+      "continente": "Europa",
+      "capital": "Berlin"
+    }
+order: 3000

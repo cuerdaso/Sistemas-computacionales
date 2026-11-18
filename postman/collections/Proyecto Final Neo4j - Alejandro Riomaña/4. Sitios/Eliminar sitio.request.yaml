@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/sitios/Cristo Rey"
+method: DELETE
+order: 5000

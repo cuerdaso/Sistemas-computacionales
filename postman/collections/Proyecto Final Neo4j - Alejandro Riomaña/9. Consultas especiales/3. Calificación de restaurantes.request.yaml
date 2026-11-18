@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consultas/calificacion-restaurantes"
+method: GET
+order: 4000

@@ -1,4 +1,4 @@
 $kind: http-request
-url: ""
-method: GET
+url: "{{baseUrl}}/api/marcas/eliminar-fisico/0"
+method: DELETE
 order: 2000

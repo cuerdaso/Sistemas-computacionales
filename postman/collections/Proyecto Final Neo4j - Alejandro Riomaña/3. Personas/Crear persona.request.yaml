@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/api/personas"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": "P900",
+      "nombre": "Persona de Prueba",
+      "tipo": "Deportista",
+      "actividad": "Natación",
+      "sexo": "mujer",
+      "nacimiento": "2000-03-15",
+      "ciudad_nacimiento": "Santiago de Cali",
+      "ciudad_famoso": "Santiago de Cali"
+    }
+order: 3000

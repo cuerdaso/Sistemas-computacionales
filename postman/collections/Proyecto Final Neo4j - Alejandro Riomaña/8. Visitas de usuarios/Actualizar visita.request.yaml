@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/visitas/V001"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "fecha": "2026-09-14T11:00:00",
+      "comentario": "Llegué un poco más tarde"
+    }
+order: 4000

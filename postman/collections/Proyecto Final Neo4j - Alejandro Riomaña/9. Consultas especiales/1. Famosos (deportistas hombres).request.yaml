@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consultas/famosos?tipo=Deportista&sexo=hombre"
+method: GET
+queryParams:
+  tipo: Deportista
+  sexo: hombre
+order: 2000

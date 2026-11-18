@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/ciudades/Tuluá"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "poblacion": 235000
+    }
+order: 4000

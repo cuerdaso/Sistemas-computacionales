@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/sitios/Cristo Rey"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "tipo": "Mirador"
+    }
+order: 4000

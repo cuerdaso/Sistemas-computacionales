@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consumos/C001"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "estrellas": 4,
+      "comentario_lugar": "Había mucha fila"
+    }
+order: 5000

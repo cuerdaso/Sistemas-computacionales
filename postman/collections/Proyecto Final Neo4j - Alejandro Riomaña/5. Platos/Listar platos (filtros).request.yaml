@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos?categoria=Plato fuerte&pais=ENG"
+method: GET
+queryParams:
+  categoria: Plato fuerte
+  pais: ENG
+order: 1000

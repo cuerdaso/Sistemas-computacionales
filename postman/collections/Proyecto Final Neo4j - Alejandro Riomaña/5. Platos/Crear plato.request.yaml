@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Lulada",
+      "categoria": "Bebida",
+      "ciudad_origen": "Santiago de Cali",
+      "sitios": [
+        {
+          "sitio": "El Zaguán de San Antonio",
+          "precio": 9000,
+          "moneda": "COP"
+        }
+      ]
+    }
+order: 3000

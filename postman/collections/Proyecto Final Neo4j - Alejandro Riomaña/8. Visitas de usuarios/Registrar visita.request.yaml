@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/visitas"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "usuario": "U002",
+      "sitio": "Museo del Oro",
+      "fecha": "2026-11-15T09:30:00",
+      "comentario": "Impresionante la colección de orfebrería"
+    }
+order: 3000

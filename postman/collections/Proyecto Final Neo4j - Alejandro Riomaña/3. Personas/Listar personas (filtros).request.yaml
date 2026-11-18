@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/personas?tipo=Deportista&sexo=mujer"
+method: GET
+queryParams:
+  tipo: Deportista
+  sexo: mujer
+order: 1000

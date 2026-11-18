@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 public class Modelo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
     @Column(name = "nombre", nullable = false, length = 100)

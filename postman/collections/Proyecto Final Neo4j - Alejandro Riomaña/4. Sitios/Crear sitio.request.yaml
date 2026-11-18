@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/sitios"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "nombre": "Cristo Rey",
+      "tipo": "Monumento",
+      "latitud": 3.4359,
+      "longitud": -76.5636,
+      "ciudad": "Santiago de Cali"
+    }
+order: 3000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/consumos/C001"
+method: GET
+order: 2000

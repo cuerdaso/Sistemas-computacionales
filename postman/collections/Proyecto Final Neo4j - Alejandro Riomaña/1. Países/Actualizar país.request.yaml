@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/paises/ESP"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "poblacion": 48.8
+    }
+order: 4000

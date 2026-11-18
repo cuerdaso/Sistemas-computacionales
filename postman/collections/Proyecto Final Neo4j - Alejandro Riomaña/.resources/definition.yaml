@@ -1,0 +1,4 @@
+$kind: collection
+description: API REST con Neo4j (Colombia e Inglaterra). Antes de probar, cargar database/datos_neo4j.cypher en Neo4j.
+variables:
+  baseUrl: http://localhost:8081

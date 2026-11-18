@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/api/personas/P900"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "actividad": "Natación aguas abiertas",
+      "ciudad_nacimiento": "Palmira",
+      "ciudad_famoso": "Santiago de Cali"
+    }
+order: 4000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos/Lulada"
+method: DELETE
+order: 7000

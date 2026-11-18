@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/platos/Lulada"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "categoria": "Bebida",
+      "cocina": "Típica vallecaucana"
+    }
+order: 4000

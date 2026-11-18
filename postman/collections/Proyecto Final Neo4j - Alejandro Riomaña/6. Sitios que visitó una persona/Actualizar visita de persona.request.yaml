@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/personas/P006/visitas/VP001"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "comentario": "Comentario actualizado"
+    }
+order: 3000

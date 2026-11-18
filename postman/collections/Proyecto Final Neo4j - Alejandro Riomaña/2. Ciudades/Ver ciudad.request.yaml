@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{baseUrl}}/api/ciudades/Barranquilla"
+method: GET
+order: 2000

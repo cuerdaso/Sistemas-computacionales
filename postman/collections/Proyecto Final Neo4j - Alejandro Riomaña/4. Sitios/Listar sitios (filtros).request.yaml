@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/sitios?tipo=Restaurante&pais=COL"
+method: GET
+queryParams:
+  tipo: Restaurante
+  pais: COL
+order: 1000
